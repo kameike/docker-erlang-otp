@@ -45,7 +45,10 @@ RUN set -xe \
 			| sort -u \
 			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 	)" \
-	&& apk add --virtual .erlang-rundeps $runDeps lksctp-tools \
+	&& apk add --virtual .erlang-rundeps \
+		$runDeps \
+		lksctp-tools \
+		ca-certificates \
 	&& apk del .fetch-deps .build-deps
 
 CMD ["erl"]
